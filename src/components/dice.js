@@ -1,4 +1,5 @@
 import React, {useEffect, useState} from 'react';
+import "./dice.css"
 
 const Dice = () => {
     const [result, setResult] = useState(0);
@@ -6,7 +7,7 @@ const Dice = () => {
     const [history, setHistory] = useState([{}])
 
     useEffect(() => {
-        if(JSON.parse(localStorage.getItem("history")).length > 1) {
+        if (JSON.parse(localStorage.getItem("history")).length > 1) {
             setHistory(JSON.parse(localStorage.getItem("history")))
         }
     }, [])
@@ -22,23 +23,36 @@ const Dice = () => {
         setHistory(prevState => [...prevState, {number: number + 1, result: random, date: now}])
     }
 
+    const clearHandler = () => {
+        setResult(0)
+        setNumber(0)
+        setHistory([{}])
+        localStorage.clear()
+    }
+
     useEffect(() => {
         localStorage.setItem(`history`, JSON.stringify(history))
     }, [history])
 
     const throwsStorage = JSON.parse(localStorage.getItem("history"))
-    const throwsHistory = throwsStorage?.map((e) => e.number ? (<section key={e.number}>
+    const throwsHistory = throwsStorage?.map((e) => e.number ? (<div className="list" key={e.number}>
         <div>Throw: {e.number}</div>
         <div>Result: {e.result}</div>
         <div>Date: {e.date}</div>
-    </section>) : null)
+    </div>) : null)
 
     return (
         <>
-            Lp. {number}
-            <button onClick={diceHandler}>DICE</button>
-            Wynik {result}
-            {throwsHistory}
+            <section className="diceWrapper">
+                <div className="diceWrapper--dice">
+                    <button className="button button--dice" onClick={diceHandler}>DICE</button>
+                    <div>Throw: {number}</div>
+                    <div>Result: {result}</div>
+                </div>
+                <button className="button button--clear" onClick={clearHandler}>Clear history</button>
+                <div className="diceWrapper--list">{throwsHistory}</div>
+            </section>
+
         </>
     )
 };
