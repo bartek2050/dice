@@ -5,6 +5,11 @@ const Dice = () => {
     const [number, setNumber] = useState(0);
     const [history, setHistory] = useState([{}])
 
+    useEffect(() => {
+        if(JSON.parse(localStorage.getItem("history")).length > 1) {
+            setHistory(JSON.parse(localStorage.getItem("history")))
+        }
+    }, [])
 
     const min = Math.ceil(1)
     const max = Math.floor(6)
@@ -18,7 +23,7 @@ const Dice = () => {
     }
 
     useEffect(() => {
-        localStorage.setItem(`history`, JSON.stringify(history));
+        localStorage.setItem(`history`, JSON.stringify(history))
     }, [history])
 
     const throwsStorage = JSON.parse(localStorage.getItem("history"))
