@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+    import React, {useEffect, useState} from 'react';
 import "./dice.css"
 
 const Dice = () => {
@@ -45,7 +45,7 @@ const Dice = () => {
         <>
             <section className="diceWrapper">
                 <div className="diceWrapper--dice">
-                    <button className="button button--dice" onClick={diceHandler}>DICE</button>
+                    <button className="button button--dice" onClick={diceHandler}>THROW DICE</button>
                     <div>Throw: {number}</div>
                     <div>Result: {result}</div>
                 </div>
